@@ -1,0 +1,33 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1588325103304.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "B435D0AB",
+    "lastKnownWriteTime" : 4294967300,
+    "last_content_update" : 1588325103304,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "ECA0798",
+        "caption" : "cases_by_region_subset",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=cases_by_region_subset&cache_key=ECA0798",
+        "displayedObservations" : "1",
+        "environment" : "",
+        "expression" : "cases_by_region_subset",
+        "object" : "cases_by_region_subset",
+        "preview" : "0",
+        "totalObservations" : "1",
+        "variables" : "10"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

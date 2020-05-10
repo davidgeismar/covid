@@ -1,0 +1,45 @@
+library(readr)
+library("tidyverse")
+library(httr)
+
+
+cases_by_region <- read_csv("cases_by_region.csv")
+cases_by_region_colnames <- colnames(cases_by_region)
+build_uri <- function(row){
+  base <- "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/weatherdata/history?"
+  api_key <- "2YXV4EUUFVIXJ5Z8976N180CP"
+  params <- paste("&aggregateHours=24&startDateTime=", row$day, "T00:00:00&endDateTime=", row$day, "T23:59:00&unitGroup=metric&contentType=csv&location=", row$lat,",", row$long, "&key=", api_key, sep="")
+  url <- paste(base, params, sep="")
+  url
+}
+
+get_temp <- function(row) {
+  cat(sprintf("row : %s \n", row))
+  uri <- build_uri(row)
+  cat(sprintf("URL : %s \n", uri))
+  response <- NULL
+  attempt <- 1
+  while(is.null(response) && attempt <= 5){
+    attempt <- attempt + 1
+    try(
+      response <- read_csv(uri)
+    )
+  }
+  if (!is.null(response)){
+    merged <- merge(response, row, by=0)
+  } else {
+    Sys.sleep(5)
+  } 
+}
+cases_by_region_subset <- cases_by_region[c(0:1),]
+temps <- do.call(rbind, lapply(split(cases_by_region_subset, 1), get_temp))
+write.csv(temps, "tem_and_cases_r.csv", row.names = FALSE)
+
+temp_data <- read_csv("temperatures.csv")
+temp_data$'Date time' <- as.Date(df$'Date time' , format = "%Y-%m-%d")
+       
+
+cases_by_region$Address <- paste(cases_by_region$lat, ",", cases_by_region$long)
+cases_by_region[c(0:5),]
+#join_data <- merge(cases_by_region, temp_date, by = c())
+#jointdataset <- merge(ChickWeight, LabResults, by = c('Diet','Time'))
